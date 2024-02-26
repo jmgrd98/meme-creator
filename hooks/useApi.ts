@@ -17,7 +17,7 @@ export const useApi = () => {
         return new Promise((resolve, reject) => {
             setTimeout(() => {
                 resolve(trending)
-            }, 2000)
+            }, 1000)
         })
     };
 
