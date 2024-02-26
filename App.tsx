@@ -5,7 +5,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import HomeScreen from './components/HomeScreen';
 import AboutScreen from './components/AboutScreen';
 import CreatorScreen from './components/CreatorScreen';
-import { Pressable, Text, extendTheme, HStack, NativeBaseProvider, VStack, Icon } from 'native-base';
+import { Pressable, Text, extendTheme, HStack, NativeBaseProvider, VStack, Icon, Center, Heading } from 'native-base';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
@@ -29,15 +29,24 @@ const getIcon = (screenName: string) => {
 const CustomDrawerContent = (props: any) => {
   return (
     <DrawerContentScrollView {...props}>
+      <Center>
+        <Heading color={'secondary.500'}>Menu</Heading>
+      </Center>
       <VStack my={2} mx={1} space={3}>
         {props.state.routeNames.map((name: string, index: number) => (
-          <Pressable key={index} onPress={(event) => props.navigation.navigate(name)}>
-            <HStack space={7} alignItems={'center'}>
+          <Pressable 
+            key={index} 
+            onPress={(event) => props.navigation.navigate(name)}
+            px={5}
+            py={3}
+            rounded={'md'}
+            bg={index === props.state.index ? 'secondary.100' : 'transparent'}
+          >
+            <HStack p={2} space={5} alignItems={'center'}>
               <Icon size={5}
                color={index === props.state.index ? 'secondary.600' : 'gray.700'}
                as={<MaterialCommunityIcons name={getIcon(name)} />}
                >
-
                </Icon>
               <Text fontWeight={500} color={index === props.state.index ? 'secondary.600' : 'gray.700'}>
                 {name}
