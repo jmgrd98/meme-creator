@@ -1,7 +1,8 @@
-import { Heading } from 'native-base'
+import { Center, Heading, Pressable, Row } from 'native-base'
 import { View, Text } from 'react-native'
 import { Meme, useApi } from '../hooks/useApi'
-import { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react';
+import { Image } from 'native-base';
 
 
 interface MemeProps {
@@ -21,12 +22,40 @@ const MemeSelector = ({ activeMeme, onSelect }: MemeProps) => {
       })
     }
     loadMemes();
-  }, [])
+  }, []);
+
+  const memeSelected = (meme: Meme) => {
+    onSelect(meme);
+  }
 
   return (
-    <Heading>
-      <Text>MemeSelector</Text>
-    </Heading>
+    <>
+    <Center>
+    <Heading>Select your Meme:</Heading>
+    </Center>
+      <Row 
+        flexWrap={'wrap'}
+        mb={5}
+        mt={5}
+        alignItems={'center'}
+        justifyContent={'center'}
+        >
+      {memes?.map((meme, index) => (
+        <Pressable
+          m={1}
+          key={meme.name}
+          onPress={() => memeSelected(meme)}
+          shadow={'2s'}>
+          <Image
+            source={meme.image}
+            borderColor={'cyan.600'}
+            borderWidth={ activeMeme === meme.name ? 4 : 0 }
+            size={'lg'}
+            alt='Meme' />
+        </Pressable>
+      ))}
+      </Row>
+    </>
   )
 }
 

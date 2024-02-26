@@ -5,8 +5,13 @@ import { Meme, TrendingMeme, useApi } from '../hooks/useApi'
 import { Center, Container, Heading, ScrollView, Skeleton, VStack, useTheme } from 'native-base';
 import Swiper from 'react-native-swiper';
 import MemeSelector from './MemeSelector';
+import { NavigationProp } from '@react-navigation/native';
 
-const HomeScreen = () => {
+interface RouterProps {
+  navigation: NavigationProp<any, any>
+}
+
+const HomeScreen = ({ navigation }: RouterProps) => {
 
   const theme = useTheme();
 
@@ -24,7 +29,7 @@ const HomeScreen = () => {
   }, []);
 
   const memeSelected = (meme: Meme) => {
-    console.log(meme)
+    navigation.navigate('Creator', { meme: meme.name })
   }
 
   const styles = StyleSheet.create({
