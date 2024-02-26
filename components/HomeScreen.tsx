@@ -2,10 +2,12 @@ import { View, Text } from 'react-native'
 import {useEffect, useState} from 'react'
 import { StyleSheet, Image } from 'react-native';
 import { TrendingMeme, useApi } from '../hooks/useApi'
-import { Center, Heading, ScrollView, Skeleton, VStack } from 'native-base';
+import { Center, Heading, ScrollView, Skeleton, VStack, useTheme } from 'native-base';
 import Swiper from 'react-native-swiper';
 
 const HomeScreen = () => {
+
+  const theme = useTheme();
 
   const { getTrending } = useApi();
   const [memes, setMemes] = useState<TrendingMeme[] | null>(null);
@@ -19,6 +21,17 @@ const HomeScreen = () => {
     }
     loadMemes();
   }, [])
+
+  const styles = StyleSheet.create({
+    wrapper: {
+      height: 400
+    },
+    text: {
+      color: theme.colors.primary[500],
+      fontSize: 30,
+      fontWeight: 'bold'
+    }
+  });
 
 
   return (
@@ -40,22 +53,21 @@ const HomeScreen = () => {
         >
           {memes?.map((meme, index) => (
             <View key={index}>
-              <VStack alignItems={'center'}>
-                <Heading>{meme.title}</Heading>
-                <Image source={{ uri: meme.url }} style={{ width: '95%', height: 300 }} />
+              <VStack alignItems={'center'} space={4} mt={4}>
+                <Heading style={styles.text}>{meme.title}</Heading>
+                <Image 
+                  resizeMode='contain'
+                  source={{ uri: meme.url }}
+                  style={{ width: '95%', height: 300 }} />
               </VStack>
             </View>
           ))}
         </Swiper>
       )}
+
+      <Heading>Test</Heading>
     </ScrollView>
   )
 }
 
-const styles = StyleSheet.create({
-  wrapper: {
-    flex: 1
-  } 
-});
-
-export default HomeScreen
+export default HomeScreen;
