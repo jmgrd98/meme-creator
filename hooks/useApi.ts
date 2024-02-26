@@ -49,6 +49,7 @@ export const useApi = () => {
     };
 
     return {
-        getTrending
+        getTrending,
+        getMemes
     }
 }

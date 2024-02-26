@@ -1,9 +1,10 @@
 import { View, Text } from 'react-native'
 import {useEffect, useState} from 'react'
 import { StyleSheet, Image } from 'react-native';
-import { TrendingMeme, useApi } from '../hooks/useApi'
-import { Center, Heading, ScrollView, Skeleton, VStack, useTheme } from 'native-base';
+import { Meme, TrendingMeme, useApi } from '../hooks/useApi'
+import { Center, Container, Heading, ScrollView, Skeleton, VStack, useTheme } from 'native-base';
 import Swiper from 'react-native-swiper';
+import MemeSelector from './MemeSelector';
 
 const HomeScreen = () => {
 
@@ -20,7 +21,11 @@ const HomeScreen = () => {
       setLoading(false);
     }
     loadMemes();
-  }, [])
+  }, []);
+
+  const memeSelected = (meme: Meme) => {
+    console.log(meme)
+  }
 
   const styles = StyleSheet.create({
     wrapper: {
@@ -65,7 +70,9 @@ const HomeScreen = () => {
         </Swiper>
       )}
 
-      <Heading>Test</Heading>
+      <Container m={4}>
+        <MemeSelector onSelect={(meme) => memeSelected(meme)} />
+      </Container>
     </ScrollView>
   )
 }
