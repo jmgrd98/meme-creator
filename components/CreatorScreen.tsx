@@ -36,11 +36,15 @@ const CreatorScreen = ({ route }: RouterProps) => {
   const doCreateMeme = async () => {
     setLoading(true);
 
-    const result = await createMeme(top, bottom, selectedName!);
-    setResult(result);
+    const memeBlob = await createMeme(top, bottom, selectedName!);
 
-    setLoading(false);
-    setShowModal(true);
+    const fileReaderInstance = new FileReader();
+    fileReaderInstance.readAsDataURL(memeBlob.data);
+    fileReaderInstance.onload = () => {
+      const base64data = fileReaderInstance.result;
+      setResult(base64data);
+      setShowModal(true);
+    }
   };
 
   const startDownload = () => {
@@ -56,8 +60,18 @@ const CreatorScreen = ({ route }: RouterProps) => {
           size={'lg'}>
             <Modal.Content maxWidth={400}>
               <Modal.CloseButton />
-              <Modal.Body>
+              <Modal.Header>
+                Your Meme
+              </Modal.Header>
 
+              <Modal.Body>
+                <Image
+                  source={{ uri: result }}
+                  alt='Result'
+                  resizeMode='contain'
+                  width={'400'}
+                  height={'200'}
+                />
               </Modal.Body>
 
               <Modal.Footer>
