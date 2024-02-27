@@ -21,7 +21,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#c30052"
-      }
+      },
+      "package": "com.anonymous.memecreator"
     },
     "web": {
       "favicon": "./assets/favicon.png"

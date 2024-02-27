@@ -4,6 +4,7 @@ import { memes } from '../assets/list';
 import { Center, Container, HStack, Image, Heading, ScrollView, VStack, FormControl, Input, Button, Spinner, Modal, useToast } from 'native-base';
 import MemeSelector from './MemeSelector';
 import { Meme, useApi } from '../hooks/useApi';
+import { CameraRoll } from '@react-native-camera-roll/camera-roll';
 
 interface RouterProps {
   navigation: NavigationProp<any, any>,
@@ -48,7 +49,8 @@ const CreatorScreen = ({ route }: RouterProps) => {
     }
   };
 
-  const startDownload = () => {
+  const startDownload = async () => {
+    await CameraRoll.saveAsset(result);
     setShowModal(false);
     toast.show({description: 'Meme saved'});
   };
