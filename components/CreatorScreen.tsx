@@ -1,7 +1,7 @@
 import { NavigationProp, RouteProp } from '@react-navigation/native'
 import { useEffect, useState } from 'react';
 import { memes } from '../assets/list';
-import { Center, Container, HStack, Image, Heading, ScrollView, VStack, FormControl, Input, Button, Spinner, Modal } from 'native-base';
+import { Center, Container, HStack, Image, Heading, ScrollView, VStack, FormControl, Input, Button, Spinner, Modal, useToast } from 'native-base';
 import MemeSelector from './MemeSelector';
 import { Meme, useApi } from '../hooks/useApi';
 
@@ -21,6 +21,7 @@ const CreatorScreen = ({ route }: RouterProps) => {
   const [result, setResult] = useState<any>(null);
   const [loading, setLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const toast = useToast();
 
   useEffect(() => {
     const { meme } = route.params || { meme: '10-Guy' } ;
@@ -48,7 +49,8 @@ const CreatorScreen = ({ route }: RouterProps) => {
   };
 
   const startDownload = () => {
-
+    setShowModal(false);
+    toast.show({description: 'Meme saved'});
   };
 
   return (
